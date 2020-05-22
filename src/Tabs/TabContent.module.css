@@ -1,0 +1,7 @@
+.TabContent {
+  min-width: 100vw;
+  overflow: hidden;
+  overflow-y: scroll;
+  min-height: 0px;
+  text-align: center;
+}

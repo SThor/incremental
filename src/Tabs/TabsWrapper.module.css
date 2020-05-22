@@ -1,0 +1,6 @@
+.TabsWrapper {
+  flex: auto;
+  min-height: 0px;
+  margin: 0 auto;
+  overflow: hidden;
+}

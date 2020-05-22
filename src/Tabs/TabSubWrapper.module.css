@@ -1,0 +1,6 @@
+.TabSubWrapper {
+    height: 100%;
+    transition: transform 0.45s;
+    display: flex;
+  }
+  

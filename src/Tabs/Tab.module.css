@@ -1,0 +1,30 @@
+.Tab {
+    flex: 1 1 0px;
+    background-color: transparent;
+    border: none;
+    margin: 0 1em;
+    padding: 0.25em 1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #a8daf2;
+  }
+  
+  .Tab:hover {
+    color: #51b7e6;
+  }
+  
+  .Tab::-moz-focus-inner {
+    border: 0;
+    margin: 0 1em;
+    padding: 0.25em 1em;
+  }
+  
+  .Tab:focus {
+    outline: none;
+  }
+  
+  .TabCurrent {
+    composes: Tab;
+    color: #51b7e6;
+  }
+  

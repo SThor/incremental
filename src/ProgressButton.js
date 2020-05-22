@@ -18,7 +18,7 @@ export class ProgressButton extends Component {
       this.setState({
         progress: 0.0,
       });
-      console.log("FINISHED!");
+      this.props.onFinished();
     } else {
       this.setState({
         progress: this.state.progress + 0.1,

@@ -1,0 +1,16 @@
+.Tabs {
+    margin: 0px 30px;
+    margin-bottom: 5px;
+  }
+  
+  .Tabs .TabList {
+    margin: 10px;
+    display: flex;
+  }
+  
+  .Tabs .Underline {
+    height: 2px;
+    background-color: #51b7e6;
+    transition: transform 0.45s;
+  }
+  
