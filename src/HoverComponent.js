@@ -9,7 +9,6 @@ export class ProgressButton extends Component {
   }
 
   updateProgress(event) {
-    console.log(Math.abs(event.movementX))
     if (this.state.progress > 1) {
       this.setState({
         progress: 0.0,
@@ -33,9 +32,9 @@ export class ProgressButton extends Component {
     }
 
     return (
-      <button className={styles.hoverZone} style={style} onMouseMove={this.updateProgress} onTouchMove={this.updateProgress}>
+      <div className={styles.hoverZone} style={style} onMouseMove={this.updateProgress} onTouchMove={this.updateProgress}>
         {this.props.text}
-      </button>
+      </div>
     );
   }
 }

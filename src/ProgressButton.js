@@ -10,7 +10,7 @@ export class ProgressButton extends Component {
   }
 
   onClick() {
-    if (this.state.progress === 0.0) setTimeout(this.updateProgress, 50);
+    if (this.state.progress === 0.0) this.timer = setTimeout(this.updateProgress, 50);
   }
 
   updateProgress() {
@@ -23,8 +23,12 @@ export class ProgressButton extends Component {
       this.setState({
         progress: this.state.progress + 0.1,
       });
-      setTimeout(this.updateProgress, 50);
+      this.timer = setTimeout(this.updateProgress, 50);
     }
+  }
+
+  componentWillUnmount(){
+    clearTimeout(this.timer);
   }
 
   render() {

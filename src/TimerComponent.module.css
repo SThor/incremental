@@ -1,12 +1,8 @@
-.hoverZone {
+.timerComponent {
     padding: 0.25em 1em;
-    width: auto;
-    height: 300px;
+    min-width: 30px;
+    min-height: 30px;
     overflow: visible;
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
     /* inherit font & color from ancestor */
     color: inherit;
@@ -22,13 +18,13 @@
     /* Corrects inability to style clickable `input` types in iOS */
     -webkit-appearance: none;
 
-    border: 2px solid #51b7e6;
+    border: 2px solid #bb0000;
     background: transparent;
     border-radius: 3px;
 }
 
 /* Remove excess padding and border in Firefox 4+ */
-.hoverZone::-moz-focus-inner {
+.timerComponent::-moz-focus-inner {
     margin: 0 1em;
     padding: 0.25em 1em;
 }

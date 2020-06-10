@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import "./App.css";
 import ProgressButton from "./ProgressButton";
-import HoverComponent from "./HoverComponent";
 import TabView from "./Tabs/TabView";
 import TabContent from "./Tabs/TabContent";
+import BattleComponent from "./BattleComponent";
 
 export class App extends Component {
   constructor() {
@@ -16,6 +16,7 @@ export class App extends Component {
       currentSubStade: 0,
     };
     this.onMainButton = this.onMainButton.bind(this);
+    this.onFail = this.onFail.bind(this);
   }
 
   stades = [
@@ -69,6 +70,13 @@ export class App extends Component {
     }
   }
 
+  onFail() {
+    this.setStade(0);
+    this.setState({
+        currentInfoText:"The last thing you saw was the boar's tusk ramming in your leg before you fell uncounscious."
+    });
+  }
+
   render() {
     return (
       <div className="App">
@@ -79,10 +87,10 @@ export class App extends Component {
           <TabContent>
             <p>{this.state.currentInfoText}</p>
             {this.state.currentStade === 0 && this.state.currentSubStade === 2 ? (
-              <HoverComponent
+              <BattleComponent
                 text={this.state.currentButtonText}
-                onFinished={this.onMainButton}
-                target={5000}
+                onSuccess={this.onMainButton}
+                onFail={this.onFail}
               />
             ) : (
               <ProgressButton

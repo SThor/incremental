@@ -1,0 +1,22 @@
+import React, { Component } from "react";
+import styles from "./BattleComponent.module.css";
+import TimerComponent from "./TimerComponent";
+import HoverComponent from "./HoverComponent";
+
+export class BattleComponent extends Component {
+  constructor() {
+    super();
+    this.state = { progress: 0.0 };
+  }
+
+  render() {
+    return (
+      <div className={styles.battleComponent}>
+        <HoverComponent style={{"flex-grow":1}} text={this.props.text} target={5000} onFinished={this.props.onSuccess}/>
+        <TimerComponent onFinished={this.props.onFail} target={800}/>
+      </div>
+    );
+  }
+}
+
+export default BattleComponent;

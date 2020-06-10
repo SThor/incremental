@@ -1,0 +1,10 @@
+.battleComponent{
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+    align-items: stretch;
+}
+
+.battleComponent>*{
+    display: inline-block;
+}

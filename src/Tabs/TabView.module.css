@@ -1,5 +1,4 @@
-.TabView{    
-  min-height: 100vh;
+.TabView{
   display: flex;
   flex-direction: column;
   align-items: center;
