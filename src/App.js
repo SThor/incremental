@@ -21,13 +21,14 @@ export class App extends Component {
 
   stades = [
     {
-      title: "Introduction",
+      title: "Prologue",
       buttonText: [
         "Wake up",
         "Pick up the sword",
         "Swing your sword at it",
         "Take refuge in the cave",
-        "Heal",
+        "Drift into a deep slumber",
+        "Read the note",
       ],
       infoText: [
         "",
@@ -35,7 +36,31 @@ export class App extends Component {
         "As you pick it up, you notice from the corner of your eye a wounded boar charging at you.",
         "After defeating the boar, you spot a hidden cave nearby that feels safe.",
         "You found refuge in the cave.",
+        "On waking up your body is still aching all over. You find a note thanking you for defeating the boar, along with a nice round coin.",
       ],
+      initStade: () => {
+        this.stades[0].setSubStade(0);
+      },
+      setSubStade: (index) => {
+        if (index >= this.stades[this.state.currentStade].buttonText.length) {
+          this.setStade(1);
+        } else {
+          console.log("setting substade to", index);
+          this.setState({
+            currentSubStade: index,
+            currentButtonText: this.stades[this.state.currentStade].buttonText[
+              index
+            ],
+            currentInfoText: this.stades[this.state.currentStade].infoText[
+              index
+            ],
+          });
+        }
+      },
+    },
+    {
+      title: "Beginning of an empire",
+      initStade: () => {},
     },
   ];
 
@@ -46,25 +71,12 @@ export class App extends Component {
       currentStade: index,
       currentTitle: this.stades[index].title,
     });
-    this.setSubStade(0);
-  }
-
-  setSubStade(index) {
-    index = Math.min(
-      index,
-      this.stades[this.state.currentStade].buttonText.length - 1
-    );
-    console.log("setting substade to", index);
-    this.setState({
-      currentSubStade: index,
-      currentButtonText: this.stades[this.state.currentStade].buttonText[index],
-      currentInfoText: this.stades[this.state.currentStade].infoText[index],
-    });
+    this.stades[index].initStade();
   }
 
   onMainButton() {
     if (this.state.currentStade === 0) {
-      this.setSubStade(this.state.currentSubStade + 1);
+      this.stades[0].setSubStade(this.state.currentSubStade + 1);
     } else {
       this.setStade(this.state.currentStade + 1);
     }
@@ -73,7 +85,8 @@ export class App extends Component {
   onFail() {
     this.setStade(0);
     this.setState({
-        currentInfoText:"The last thing you saw was the boar's tusk ramming in your leg before you fell uncounscious."
+      currentInfoText:
+        "The last thing you saw was the boar's tusk ramming in your leg before you fell uncounscious.",
     });
   }
 
@@ -86,7 +99,8 @@ export class App extends Component {
         <TabView showControls={this.state.currentStade > 0}>
           <TabContent>
             <p>{this.state.currentInfoText}</p>
-            {this.state.currentStade === 0 && this.state.currentSubStade === 2 ? (
+            {this.state.currentStade === 0 &&
+            this.state.currentSubStade === 2 ? (
               <BattleComponent
                 text={this.state.currentButtonText}
                 onSuccess={this.onMainButton}
