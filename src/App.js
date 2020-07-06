@@ -105,6 +105,8 @@ export class App extends Component {
                 text={this.state.currentButtonText}
                 onSuccess={this.onMainButton}
                 onFail={this.onFail}
+                health={8000}
+                time={30}
               />
             ) : (
               <ProgressButton
