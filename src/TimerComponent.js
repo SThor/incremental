@@ -14,6 +14,7 @@ export class TimerComponent extends Component {
   }
 
   updateProgress() {
+    this.timer = setTimeout(this.updateProgress, 50);
     if (this.state.progress > 1) {
       this.setState({
         progress: 0.0,
@@ -23,7 +24,6 @@ export class TimerComponent extends Component {
       this.setState({
         progress: this.state.progress + this.step,
       });
-      this.timer = setTimeout(this.updateProgress, 50);
     }
   }
 
