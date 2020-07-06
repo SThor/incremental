@@ -5,12 +5,7 @@ export class TimerComponent extends Component {
   constructor() {
     super();
     this.state = { progress: 0.0 };
-    this.onClick = this.onClick.bind(this);
     this.updateProgress = this.updateProgress.bind(this);
-  }
-
-  onClick() {
-    if (this.state.progress === 0.0) setTimeout(this.updateProgress, 50);
   }
 
   updateProgress() {
