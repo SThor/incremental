@@ -28,7 +28,11 @@ export class TimerComponent extends Component {
   }
 
   componentDidMount() {
-    this.step = 1 / this.props.target;
+    // Times 20 because we use 50ms increments and we want target to be seconds
+    this.step = 1 / (this.props.target*20);
+    this.setState({
+      progress: this.state.progress + this.step,
+    });
     this.timer = setTimeout(this.updateProgress, 50);
   }
 
