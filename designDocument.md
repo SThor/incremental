@@ -58,17 +58,13 @@ chaque activité commence en acceptant un contrat
 
 ## Scénario
 
-### Prologue
-
-#### Introduction au type de jeu, setting, et mécanique de combat
+### Prologue : Introduction au type de jeu, setting, et mécanique de combat
 
 On se réveille, blessé, et l'on trouve une épée. Un sanglier blessé nous charge, on le combat facilement grâce à l'épée, puis on se réfugie dans la grotte. Si l'on échoue le combat, on s'évanouit et l'on reprend au début.
 
-#### Premier contrat
+### Début du premier stade : Premiers contrats et premières améliorations du QG
 
 Quelqu'un nous a observé tuer le sanglier, il nous donne une récompense et nous propose de tuer d'autres animaux pour d'autres récompenses. On reçoit un premier contrat et débloque donc l'onglet des contrats.
-
-#### Première amélioration du QG
 
 Pour effectuer ce premier contrat, il va être nécessaire de se soigner. Pour cela il va falloir équiper notre grotte, ce qui est l'occasion d'apporter la première amélioration à notre QG.
 
