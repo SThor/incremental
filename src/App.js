@@ -4,6 +4,7 @@ import ProgressButton from "./ProgressButton";
 import TabView from "./Tabs/TabView";
 import TabContent from "./Tabs/TabContent";
 import BattleComponent from "./BattleComponent";
+import ContractsTab from "./Contracts/ContractsTab";
 
 export class App extends Component {
   constructor() {
@@ -17,6 +18,7 @@ export class App extends Component {
     };
     this.onMainButton = this.onMainButton.bind(this);
     this.onFail = this.onFail.bind(this);
+    this.skipPrologue = this.skipPrologue.bind(this);
   }
 
   stades = [
@@ -61,6 +63,7 @@ export class App extends Component {
     {
       title: "Beginning of an empire",
       initStade: () => {},
+      contracts: [{ title: "thanks for the boar", contents: "thanks." },{ title: "thanks for the boar", contents: "thanks." }],
     },
   ];
 
@@ -90,13 +93,20 @@ export class App extends Component {
     });
   }
 
+  skipPrologue() {
+    this.setStade(1);
+  }
+
   render() {
     return (
       <div className="App">
         {this.state.currentStade !== 0 || this.state.currentSubStade !== 0 ? (
           <h1>{this.state.currentTitle}</h1>
-        ) : null}
-        <TabView showControls={this.state.currentStade > 0}>
+        ) : 
+        (<button onClick={this.skipPrologue} style={{ "font-size": "x-small" }}>
+          Skip prologue
+        </button>)}
+        {this.state.currentStade === 0 ? (
           <TabContent>
             <p>{this.state.currentInfoText}</p>
             {this.state.currentStade === 0 &&
@@ -113,9 +123,14 @@ export class App extends Component {
               />
             )}
           </TabContent>
-          <TabContent>Test</TabContent>
-          <TabContent>Retest</TabContent>
-        </TabView>
+        ) : (
+          <TabView showControls={this.state.currentStade > 0}>
+            <ContractsTab
+              contracts={this.stades[this.state.currentStade].contracts}
+            ></ContractsTab>
+            <TabContent>Your den</TabContent>
+          </TabView>
+        )}
       </div>
     );
   }

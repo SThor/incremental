@@ -22,7 +22,7 @@ export class TabView extends Component {
         {this.props.showControls ? (
           <Tabs
             activeIndex={this.state.currentTab}
-            titles={["Story", "Contracts", "Your den"]}
+            titles={["Contracts", "Your den"]}
             onTabClicked={this.setTabIndex}
           />
         ) : null}
