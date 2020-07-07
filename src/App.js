@@ -19,6 +19,7 @@ export class App extends Component {
     this.onMainButton = this.onMainButton.bind(this);
     this.onFail = this.onFail.bind(this);
     this.skipPrologue = this.skipPrologue.bind(this);
+    this.availableContracts = this.availableContracts.bind(this);
   }
 
   stades = [
@@ -63,9 +64,18 @@ export class App extends Component {
     {
       title: "Beginning of an empire",
       initStade: () => {},
-      contracts: [{ title: "thanks for the boar", contents: "thanks." },{ title: "thanks for the boar", contents: "thanks." }],
     },
   ];
+
+  contracts = [
+    { title: "thanks for the boar", contents: "thanks.", stage: 1 },
+    { title: "thanks for the boar2", contents: "thanks.", stage: 2 },
+    { title: "thanks for the boar3", contents: "thanks.", stage: 1 },
+  ];
+
+  availableContracts(stage) {
+    return this.contracts.filter((contract) => (contract.stage <= stage));
+  };
 
   setStade(index) {
     index = Math.min(index, this.stades.length - 1);
@@ -75,7 +85,7 @@ export class App extends Component {
       currentTitle: this.stades[index].title,
     });
     this.stades[index].initStade();
-  }
+  };
 
   onMainButton() {
     if (this.state.currentStade === 0) {
@@ -83,7 +93,7 @@ export class App extends Component {
     } else {
       this.setStade(this.state.currentStade + 1);
     }
-  }
+  };
 
   onFail() {
     this.setStade(0);
@@ -91,21 +101,25 @@ export class App extends Component {
       currentInfoText:
         "The last thing you saw was the boar's tusk ramming in your leg before you fell uncounscious.",
     });
-  }
+  };
 
   skipPrologue() {
     this.setStade(1);
-  }
+  };
 
   render() {
     return (
       <div className="App">
         {this.state.currentStade !== 0 || this.state.currentSubStade !== 0 ? (
           <h1>{this.state.currentTitle}</h1>
-        ) : 
-        (<button onClick={this.skipPrologue} style={{ "font-size": "x-small" }}>
-          Skip prologue
-        </button>)}
+        ) : (
+          <button
+            onClick={this.skipPrologue}
+            style={{ fontSize: "x-small" }}
+          >
+            Skip prologue
+          </button>
+        )}
         {this.state.currentStade === 0 ? (
           <TabContent>
             <p>{this.state.currentInfoText}</p>
@@ -126,7 +140,7 @@ export class App extends Component {
         ) : (
           <TabView showControls={this.state.currentStade > 0}>
             <ContractsTab
-              contracts={this.stades[this.state.currentStade].contracts}
+              contracts={this.availableContracts(this.state.currentStade)}
             ></ContractsTab>
             <TabContent>Your den</TabContent>
           </TabView>
