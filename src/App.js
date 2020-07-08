@@ -10,17 +10,32 @@ import Modal from "./Modal";
 export class App extends Component {
   constructor() {
     super();
-    this.state = {
+    this.state = this.recoverState();
+
+
+    this.onMainButton = this.onMainButton.bind(this);
+    this.onFail = this.onFail.bind(this);
+    this.skipPrologue = this.skipPrologue.bind(this);
+    this.getDefaultState = this.getDefaultState.bind(this);
+    this.resetState = this.resetState.bind(this);
+    this.storeState = this.storeState.bind(this);
+    this.recoverState = this.recoverState.bind(this);
+  }
+
+  getDefaultState() {
+    return Object.assign({}, {
       currentStade: 0,
       currentTitle: this.stades[0].title,
       currentButtonText: this.stades[0].buttonText[0],
       currentInfoText: this.stades[0].infoText[0],
       currentSubStade: 0,
       combatInProgress: true,
-    };
-    this.onMainButton = this.onMainButton.bind(this);
-    this.onFail = this.onFail.bind(this);
-    this.skipPrologue = this.skipPrologue.bind(this);
+    });
+  }
+
+  componentDidMount() {
+    window.addEventListener('beforeunload', this.storeState);
+    setInterval(this.storeState, 60000);
   }
 
   stades = [
@@ -99,13 +114,28 @@ export class App extends Component {
     this.setStade(1);
   }
 
+  resetState() {
+    this.setState(this.getDefaultState());
+  }
+  storeState() {
+    window.localStorage.setItem('state', JSON.stringify(this.state));
+  }
+  recoverState() {
+    let savedState = window.localStorage.getItem('state');
+    if (savedState === null) {
+      return this.getDefaultState();
+    } else {
+      return JSON.parse(savedState);
+    }
+  }
+
   render() {
     return (
       <div className="App">
         {this.state.currentStade !== 0 || this.state.currentSubStade !== 0 ? (
           <h1>{this.state.currentTitle}</h1>
-        ) : 
-        (<button onClick={this.skipPrologue} style={{ "font-size": "x-small" }}>
+        ) :
+        (<button onClick={this.skipPrologue} style={{ "fontSize": "x-small" }}>
           Skip prologue
         </button>)}
         {this.state.currentStade === 0 ? (
@@ -135,7 +165,8 @@ export class App extends Component {
             <TabContent>Your den</TabContent>
           </TabView>
         )}
-        <Modal active={this.state.currentStade > 0}><BattleComponent></BattleComponent></Modal>
+      <button onClick={this.resetState} style={{ "fontSize": "x-small", "position": "absolute", "bottom": "0" }}>Reset state</button>
+        <Modal active={false}><BattleComponent></BattleComponent></Modal>
       </div>
     );
   }
