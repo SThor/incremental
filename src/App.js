@@ -133,7 +133,7 @@ export class App extends Component {
             <TabContent>Your den</TabContent>
           </TabView>
         )}
-        <Modal active={this.state.combatInProgress}><BattleComponent></BattleComponent></Modal>
+        <Modal active={this.state.currentStade > 0}><BattleComponent></BattleComponent></Modal>
       </div>
     );
   }
