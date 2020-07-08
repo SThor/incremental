@@ -36,7 +36,6 @@ export class ProgressButton extends Component {
       previousX: normalisedX
     });
 
-    console.log(this.state.progress);
     if (this.state.progress > 1) {
       this.props.onFinished();
     } else {
