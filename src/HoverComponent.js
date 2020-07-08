@@ -4,41 +4,44 @@ import styles from "./HoverComponent.module.css";
 export class ProgressButton extends Component {
   constructor() {
     super();
-    this.state = { progress: 0.0, previousTouch: null };
+    this.state = { progress: 0.0, previousX: null };
     this.updateProgress = this.updateProgress.bind(this);
-    this.handleMouse = this.handleMouse.bind(this);
-    this.handleTouch = this.handleTouch.bind(this);
+    this.elem = React.createRef();
   }
 
-  handleMouse(event) {
-    this.updateProgress(Math.abs(event.movementX));
-    event.preventDefault();
-  }
+  updateProgress(event) {
+    // Fetching HoverComponent bounding rectangle
+    let rect = this.elem.current.getBoundingClientRect();
 
-  handleTouch(event) {
-    if (this.state.previousTouch == null) {
+    // Detecting out of bound touches (triggered if touchstart in element but moves outside)
+    if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) {
+        return;
+    }
+
+    // Zeroing x depending on component position
+    let x = event.clientX - rect.left;
+    // Normalizing x using element size
+    // We want ~1 health = 1 sweep, multiplying by 1.08 to account for imperfections in the listeners/events
+    let normalisedX = (x/this.elem.current.offsetWidth)*1.08;
+
+    if (this.state.previousX === null) {
       this.setState({
-        previousTouch: event.touches[0].clientX
+        previousX: normalisedX
       });
       return;
     }
-    let movementValue = Math.abs(event.touches[0].clientX - this.state.previousTouch);
-    this.updateProgress(movementValue);
-    this.setState({
-      previousTouch: event.touches[0].clientX
-    });
-    event.preventDefault();
-  }
 
-  updateProgress(movementValue) {
+    let diff = Math.abs(normalisedX - this.state.previousX);
+    this.setState({
+      previousX: normalisedX
+    });
+
+    console.log(this.state.progress);
     if (this.state.progress > 1) {
-      this.setState({
-        progress: 0.0,
-      });
       this.props.onFinished();
     } else {
       this.setState({
-        progress: this.state.progress + this.toFraction(movementValue),
+        progress: this.state.progress + this.toFraction(diff),
       });
     }
   }
@@ -53,7 +56,7 @@ export class ProgressButton extends Component {
     };
 
     return (
-      <div className={styles.hoverZone} style={style} onMouseMove={this.handleMouse} onTouchMove={this.handleTouch}>
+      <div ref={this.elem} className={styles.hoverZone} style={style} onPointerMove={this.updateProgress}>
         {this.props.text}
       </div>
     );
