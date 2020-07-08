@@ -5,6 +5,7 @@ import TabView from "./Tabs/TabView";
 import TabContent from "./Tabs/TabContent";
 import BattleComponent from "./BattleComponent";
 import ContractsTab from "./Contracts/ContractsTab";
+import Modal from "./Modal";
 
 export class App extends Component {
   constructor() {
@@ -15,6 +16,7 @@ export class App extends Component {
       currentButtonText: this.stades[0].buttonText[0],
       currentInfoText: this.stades[0].infoText[0],
       currentSubStade: 0,
+      combatInProgress: true,
     };
     this.onMainButton = this.onMainButton.bind(this);
     this.onFail = this.onFail.bind(this);
@@ -145,6 +147,7 @@ export class App extends Component {
             <TabContent>Your den</TabContent>
           </TabView>
         )}
+        <Modal active={this.state.currentStade > 0}><BattleComponent></BattleComponent></Modal>
       </div>
     );
   }
