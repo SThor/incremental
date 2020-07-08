@@ -5,35 +5,28 @@ export class TimerComponent extends Component {
   constructor() {
     super();
     this.state = { progress: 0.0 };
-    this.onClick = this.onClick.bind(this);
     this.updateProgress = this.updateProgress.bind(this);
   }
 
-  onClick() {
-    if (this.state.progress === 0.0) setTimeout(this.updateProgress, 50);
-  }
-
   updateProgress() {
+    let now = Date.now();
+    let diff = now - this.start;
+    this.setState({
+      progress: (diff / (this.props.target*1000)),
+    });
     if (this.state.progress > 1) {
-      this.setState({
-        progress: 0.0,
-      });
       this.props.onFinished();
-    } else {
-      this.setState({
-        progress: this.state.progress + this.step,
-      });
-      this.timer = setTimeout(this.updateProgress, 50);
     }
   }
 
   componentDidMount() {
-    this.step = 1 / this.props.target;
-    this.timer = setTimeout(this.updateProgress, 50);
+    this.start = Date.now();
+    this.target = this.start + (this.props.target*1000);
+    this.interval = setInterval(this.updateProgress, 50);
   }
 
   componentWillUnmount() {
-    clearTimeout(this.timer);
+    clearInterval(this.interval);
   }
 
   render() {
