@@ -9,6 +9,7 @@ export class ContractsTab extends Component {
           <div key={contract+i}>
             <h3>{contract.title}</h3>
             <p>{contract.contents}</p>
+            <button onClick={()=>{this.props.onStartContract(contract)}}>Start contract</button>
           </div>
         ))}
       </TabContent>

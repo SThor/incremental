@@ -16,12 +16,15 @@ export class App extends Component {
       currentButtonText: this.stades[0].buttonText[0],
       currentInfoText: this.stades[0].infoText[0],
       currentSubStade: 0,
-      combatInProgress: true,
+      contractInProgress: false,
+      currentContract: {},
     };
     this.onMainButton = this.onMainButton.bind(this);
     this.onFail = this.onFail.bind(this);
     this.skipPrologue = this.skipPrologue.bind(this);
     this.availableContracts = this.availableContracts.bind(this);
+    this.startContract = this.startContract.bind(this);
+    this.onContractSuccess = this.onContractSuccess.bind(this);
   }
 
   stades = [
@@ -70,14 +73,27 @@ export class App extends Component {
   ];
 
   contracts = [
-    { title: "thanks for the boar", contents: "thanks.", stage: 1 },
-    { title: "thanks for the boar2", contents: "thanks.", stage: 2 },
-    { title: "thanks for the boar3", contents: "thanks.", stage: 1 },
+    { id: 1, title: "thanks for the boar", contents: "thanks.", stage: 1 },
+    { id: 2, title: "thanks for the boar2", contents: "thanks.", stage: 2 },
+    { id: 3, title: "thanks for the boar3", contents: "thanks.", stage: 1 },
   ];
 
   availableContracts(stage) {
-    return this.contracts.filter((contract) => (contract.stage <= stage));
-  };
+    return this.contracts.filter((contract) => contract.stage <= stage);
+  }
+
+  startContract(contract) {
+    this.setState({
+      contractInProgress: true,
+      currentContract: contract,
+    });
+  }
+  onContractSuccess() {
+    this.setState({
+      contractInProgress: false,
+      currentContract: {},
+    });
+  }
 
   setStade(index) {
     index = Math.min(index, this.stades.length - 1);
@@ -87,7 +103,7 @@ export class App extends Component {
       currentTitle: this.stades[index].title,
     });
     this.stades[index].initStade();
-  };
+  }
 
   onMainButton() {
     if (this.state.currentStade === 0) {
@@ -95,7 +111,7 @@ export class App extends Component {
     } else {
       this.setStade(this.state.currentStade + 1);
     }
-  };
+  }
 
   onFail() {
     this.setStade(0);
@@ -103,11 +119,11 @@ export class App extends Component {
       currentInfoText:
         "The last thing you saw was the boar's tusk ramming in your leg before you fell uncounscious.",
     });
-  };
+  }
 
   skipPrologue() {
     this.setStade(1);
-  };
+  }
 
   render() {
     return (
@@ -115,10 +131,7 @@ export class App extends Component {
         {this.state.currentStade !== 0 || this.state.currentSubStade !== 0 ? (
           <h1>{this.state.currentTitle}</h1>
         ) : (
-          <button
-            onClick={this.skipPrologue}
-            style={{ fontSize: "x-small" }}
-          >
+          <button onClick={this.skipPrologue} style={{ fontSize: "x-small" }}>
             Skip prologue
           </button>
         )}
@@ -143,11 +156,18 @@ export class App extends Component {
           <TabView showControls={this.state.currentStade > 0}>
             <ContractsTab
               contracts={this.availableContracts(this.state.currentStade)}
+              onStartContract={this.startContract}
             ></ContractsTab>
             <TabContent>Your den</TabContent>
           </TabView>
         )}
-        <Modal active={this.state.currentStade > 0}><BattleComponent></BattleComponent></Modal>
+        <Modal active={this.state.contractInProgress}>
+          <BattleComponent
+            text={this.state.currentContract.title}
+            onSuccess={this.onContractSuccess}
+            onFail={this.onFail}
+          ></BattleComponent>
+        </Modal>
       </div>
     );
   }
