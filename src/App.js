@@ -10,21 +10,39 @@ import Modal from "./Modal";
 export class App extends Component {
   constructor() {
     super();
-    this.state = {
-      currentStade: 0,
-      currentTitle: this.stades[0].title,
-      currentButtonText: this.stades[0].buttonText[0],
-      currentInfoText: this.stades[0].infoText[0],
-      currentSubStade: 0,
-      contractInProgress: false,
-      currentContract: {},
-    };
+    this.state = this.recoverState();
+
     this.onMainButton = this.onMainButton.bind(this);
     this.onFail = this.onFail.bind(this);
     this.skipPrologue = this.skipPrologue.bind(this);
+    this.getDefaultState = this.getDefaultState.bind(this);
+    this.resetState = this.resetState.bind(this);
+    this.storeState = this.storeState.bind(this);
+    this.recoverState = this.recoverState.bind(this);
+    this.onMainButton = this.onMainButton.bind(this);
     this.availableContracts = this.availableContracts.bind(this);
     this.startContract = this.startContract.bind(this);
     this.onContractSuccess = this.onContractSuccess.bind(this);
+  }
+
+  getDefaultState() {
+    return Object.assign(
+      {},
+      {
+        currentStade: 0,
+        currentTitle: this.stades[0].title,
+        currentButtonText: this.stades[0].buttonText[0],
+        currentInfoText: this.stades[0].infoText[0],
+        currentSubStade: 0,
+        combatInProgress: false,
+        currentContract: {},
+      }
+    );
+  }
+
+  componentDidMount() {
+    window.addEventListener("beforeunload", this.storeState);
+    setInterval(this.storeState, 60000);
   }
 
   stades = [
@@ -125,6 +143,21 @@ export class App extends Component {
     this.setStade(1);
   }
 
+  resetState() {
+    this.setState(this.getDefaultState());
+  }
+  storeState() {
+    window.localStorage.setItem("state", JSON.stringify(this.state));
+  }
+  recoverState() {
+    let savedState = window.localStorage.getItem("state");
+    if (savedState === null) {
+      return this.getDefaultState();
+    } else {
+      return JSON.parse(savedState);
+    }
+  }
+
   render() {
     return (
       <div className="App">
@@ -144,6 +177,8 @@ export class App extends Component {
                 text={this.state.currentButtonText}
                 onSuccess={this.onMainButton}
                 onFail={this.onFail}
+                health={10}
+                time={30}
               />
             ) : (
               <ProgressButton
@@ -161,6 +196,12 @@ export class App extends Component {
             <TabContent>Your den</TabContent>
           </TabView>
         )}
+        <button
+          onClick={this.resetState}
+          style={{ fontSize: "x-small", position: "absolute", bottom: "0" }}
+        >
+          Reset state
+        </button>
         <Modal active={this.state.contractInProgress}>
           <BattleComponent
             text={this.state.currentContract.title}
