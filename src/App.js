@@ -91,9 +91,30 @@ export class App extends Component {
   ];
 
   contracts = [
-    { id: 1, title: "thanks for the boar", contents: "thanks.", stage: 1 },
-    { id: 2, title: "thanks for the boar2", contents: "thanks.", stage: 2 },
-    { id: 3, title: "thanks for the boar3", contents: "thanks.", stage: 1 },
+    {
+      id: 1,
+      title: "thanks for the boar",
+      contents: "thanks.",
+      stage: 1,
+      health: 10,
+      time: 30,
+    },
+    {
+      id: 2,
+      title: "thanks for the boar2",
+      contents: "thanks.",
+      stage: 2,
+      health: 10,
+      time: 30,
+    },
+    {
+      id: 3,
+      title: "thanks for the boar3",
+      contents: "thanks.",
+      stage: 1,
+      health: 10,
+      time: 30,
+    },
   ];
 
   availableContracts(stage) {
@@ -203,10 +224,13 @@ export class App extends Component {
           Reset state
         </button>
         <Modal active={this.state.contractInProgress}>
+          <h1>{this.state.currentContract.title}</h1>
           <BattleComponent
-            text={this.state.currentContract.title}
+            text={this.state.currentContract.contents}
             onSuccess={this.onContractSuccess}
             onFail={this.onFail}
+            health={this.state.currentContract.health}
+            time={this.state.currentContract.time}
           ></BattleComponent>
         </Modal>
       </div>
