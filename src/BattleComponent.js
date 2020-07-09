@@ -10,10 +10,12 @@ export class BattleComponent extends Component {
   }
 
   render() {
+    let health = this.props.health?this.props.health:10;
+    let time = this.props.time?this.props.time:30;
     return (
       <div className={styles.battleComponent}>
-        <HoverComponent style={{"flex-grow":1}} text={this.props.text} target={this.props.health} onFinished={this.props.onSuccess}/>
-        <TimerComponent onFinished={this.props.onFail} target={this.props.time}/>
+        <HoverComponent style={{"flex-grow":1}} text={this.props.text} target={health} onFinished={this.props.onSuccess}/>
+        <TimerComponent onFinished={this.props.onFail} target={time}/>
       </div>
     );
   }
