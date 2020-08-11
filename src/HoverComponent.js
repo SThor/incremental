@@ -51,7 +51,8 @@ export class ProgressButton extends Component {
 
   render() {
     let style ={
-        background:`linear-gradient(to top, #51b7e6 0%, #51b7e6 ${this.state.progress * 100}%, transparent ${this.state.progress * 100}%, transparent 100%)`
+        background: `linear-gradient(to top, #51b7e6 0%, #51b7e6 ${this.state.progress * 100}%, transparent ${this.state.progress * 100}%, transparent 100%)`,
+        touchAction: 'none'
     };
 
     return (
