@@ -36,10 +36,10 @@ export class StoryMode extends Component {
     this.setState(this.getDefaultState());
   }
   storeState() {
-    window.localStorage.setItem("state_prologue", JSON.stringify(this.state));
+    window.localStorage.setItem("state_story", JSON.stringify(this.state));
   }
   recoverState() {
-    let savedState = window.localStorage.getItem("state_prologue");
+    let savedState = window.localStorage.getItem("state_story");
     if (savedState === null) {
       return this.getDefaultState();
     } else {
@@ -48,6 +48,8 @@ export class StoryMode extends Component {
   }
 
   content = {
+    title:"Prologue",
+    failText: "The last thing you saw was the boar's tusk ramming in your leg before you fell uncounscious.",
     buttonText: [
       "Wake up",
       "Pick up the sword",
@@ -64,14 +66,13 @@ export class StoryMode extends Component {
       "You found refuge in the cave.",
       "On waking up your body is still aching all over. You find a note thanking you for defeating the boar, along with a nice round coin.",
     ],
-    initStade: () => {},
   };
 
   setChapter(index) {
     if (index >= this.content.buttonText.length) {
       this.props.onEndStory();
     } else {
-      console.log("setting substade to", index);
+      console.log("setting chapter to", index);
       this.props.onSetChapter(index);
     }
   }
@@ -81,7 +82,7 @@ export class StoryMode extends Component {
   }
 
   onFail() {
-    this.content.infoText[0] = "The last thing you saw was the boar's tusk ramming in your leg before you fell uncounscious.";
+    this.content.infoText[0] = this.content.failText;
     this.setChapter(0);
   }
 
@@ -89,10 +90,10 @@ export class StoryMode extends Component {
     return (
       <div>
         {this.props.story.chapter > 0 ? (
-          <h1>Prologue</h1>
+          <h1>this.content.title</h1>
         ) : (
           <button onClick={this.props.onEndStory} style={{ fontSize: "x-small" }}>
-            Skip prologue
+            Skip story
           </button>
         )}
         <TabContent>
