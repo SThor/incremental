@@ -56,6 +56,38 @@ chaque activité commence en acceptant un contrat
 | armée  | - batailles rangées en solo<br>- délégation                                                                       | plusieurs villages puis villes               |
 | empire | - batailles rangées en solo<br>- délégation                                                                       | plusieurs régions/pays                       |
 
+#### binôme
+
+- envoyer marcel se fight solo
+- continuer nous-même à prendre des contrats solo
+- faire des fight de groupe accompagné de marcel
+
+#### bande
+
+- demander à marcel de prendre la responsabilité d'envoyer des mecs de son équipe faire des contrats solo
+- continuer à faire des fights de groupe mais à plus de gens
+
+#### troupe
+
+- demander à marcel de prendre la responsabilité de désigner des chefs d'équipe
+- demander à marcel de faire des fight de groupe sans nous
+- participer à des fights de troupe (todo : trouver un moyen d'extraire un niveau méta du stade précédent)
+
+#### armée
+
+todo
+
+#### empire
+
+todo
+
+### fight de groupe
+
+plusieurs combat component côte-à-côte
+fail si jamais une majorité des combats sont fails
+on gère notre combat et les autres sont en mode full auto en fonction des stats
+(une fois notre combat fini on peut peut-être aller aider les autres ?)
+
 ## Scénario
 
 ### Prologue : Introduction au type de jeu, setting, et mécanique de combat
