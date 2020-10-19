@@ -10,7 +10,7 @@ This was first started as a learning project, and as a small enough game project
 
 ### TL;DR
 
-Clone the project, run `npm start` in the project directory, open [http://localhost:3000](http://localhost:3000) in the browser to view the game.
+Clone the project, run `npm install`, then run `npm start` in the project directory, open [http://localhost:3000](http://localhost:3000) in the browser to view the game.
 
 ### Available Scripts
 
