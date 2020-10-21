@@ -72,7 +72,7 @@ export class App extends Component {
         {typeof this.state.story != "undefined" ? (
           <StoryMode onEndStory={this.endStory} story={this.state.story} onSetChapter={this.setChapter}></StoryMode>
         ) : (
-          <div>
+          <>
           <h1>{this.state.currentTitle}</h1>
           <TabView showControls={true}>
             <ContractsTab
@@ -80,7 +80,7 @@ export class App extends Component {
             ></ContractsTab>
             <TabContent>Your den</TabContent>
           </TabView>
-          </div>
+          </>
         )}
       <button onClick={this.resetState} style={{ "fontSize": "x-small", "position": "absolute", "bottom": "0" }}>Reset state</button>
         <Modal active={false}><BattleComponent></BattleComponent></Modal>

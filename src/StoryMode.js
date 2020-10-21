@@ -88,9 +88,9 @@ export class StoryMode extends Component {
 
   render() {
     return (
-      <div>
+      <>
         {this.props.story.chapter > 0 ? (
-          <h1>this.content.title</h1>
+          <h1>{this.content.title}</h1>
         ) : (
           <button onClick={this.props.onEndStory} style={{ fontSize: "x-small" }}>
             Skip story
@@ -113,7 +113,7 @@ export class StoryMode extends Component {
             />
           )}
         </TabContent>
-      </div>
+      </>
     );
   }
 }
