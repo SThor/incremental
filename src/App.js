@@ -36,6 +36,7 @@ export class App extends Component {
         currentSubStade: 0,
         combatInProgress: false,
         currentContract: {},
+        finishedContracts: [],
       }
     );
   }
@@ -118,7 +119,7 @@ export class App extends Component {
   ];
 
   availableContracts(stage) {
-    return this.contracts.filter((contract) => contract.stage <= stage);
+    return this.contracts.filter((contract) => {return contract.stage <= stage && !this.state.finishedContracts.includes(contract.id)});
   }
 
   startContract(contract) {
@@ -128,9 +129,12 @@ export class App extends Component {
     });
   }
   onContractSuccess() {
+    let newFinishedContracts = this.state.finishedContracts;
+    newFinishedContracts.push(this.state.currentContract.id)
     this.setState({
       contractInProgress: false,
       currentContract: {},
+      finishedContracts: newFinishedContracts
     });
   }
 
