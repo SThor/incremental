@@ -155,6 +155,7 @@ export class App extends Component {
   onFail() {
     this.setStade(0);
     this.setState({
+      contractInProgress:false,
       currentInfoText:
         "The last thing you saw was the boar's tusk ramming in your leg before you fell uncounscious.",
     });
