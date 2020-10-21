@@ -1,6 +1,6 @@
 # Incremental game (working title)
 
-This project is a work-in-progress incremental game played in the brower. You play as a mercenary slowly building up their empire.
+This project is a work-in-progress incremental game played in the browser. You play as a mercenary slowly building up their empire.
 
 ## Motivation
 
@@ -10,7 +10,7 @@ This was first started as a learning project, and as a small enough game project
 
 ### TL;DR
 
-Clone the project, run `npm start` in the project directory, open [http://localhost:3000](http://localhost:3000) in the browser to view the game.
+Clone the project, run `npm install`, then run `npm start` in the project directory, open [http://localhost:3000](http://localhost:3000) in the browser to view the game.
 
 ### Available Scripts
 
@@ -51,30 +51,10 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ## Contribute
 
-If you wish to contibute, you're welcome to do so :) I am mostly looking for technical help as well as gameplay design, but if you see anything that you can improve, feel free to open a PR. If you want to talk further about this project, please get in touch with me via mail on paulgivel[at]gmail.com. 
+If you wish to contribute, you're welcome to do so :) I am mostly looking for technical help as well as gameplay design, but if you see anything that you can improve, feel free to open a PR. If you want to talk further about this project, please get in touch with me via mail on paulgivel[at]gmail.com. 
 
 This repo is open to #hacktoberfest pull requests, and in this context my company [Genymobile](https://www.genymobile.com/) is sponsoring me to work on this project.
 
 ## License
 
-MIT License
-
-Copyright (c) 2020 Paul Givel
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+This project is under MIT license.
