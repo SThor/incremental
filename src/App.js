@@ -45,9 +45,9 @@ export class App extends Component {
   endStory() {
     this.setState({story:undefined});
   }
-  setChapter(){
+  setChapter(chapter){
     this.setState({
-      story: {chapter:this.state.story.chapter+1},
+      story: {chapter:chapter},
     });
   }
 
