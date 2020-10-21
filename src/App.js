@@ -63,7 +63,7 @@ export class App extends Component {
         "As you pick it up, you notice from the corner of your eye a wounded boar charging at you.",
         "After defeating the boar, you spot a hidden cave nearby that feels safe.",
         "You found refuge in the cave.",
-        "On waking up your body is still aching all over. You find a note thanking you for defeating the boar, along with a nice round coin.",
+        "On waking up your body is still aching all over. You are lying on a makeshift bed made of ferns and twigs, and some kind of ointment has been spread on your wounds. You find a note by your side.",
       ],
       initStade: () => {
         this.stades[0].setSubStade(0);
@@ -94,8 +94,12 @@ export class App extends Component {
   contracts = [
     {
       id: 1,
-      title: "thanks for the boar",
-      contents: "thanks.",
+      title: "Thanks for the boar",
+      note: {
+        author: "Thomas, the innkeeper",
+        contents: "Hey there, thanks for taking care of that boar. You managed to kill it, but looking at you I can tell it didn't give up easy. I guess no one has time to get rid of them before they get that big. I found the boar in a nearby clearing and then you in here. I am a bit weary of strangers during this troubled times, but I couldn't leave you by yourseld. I patched you up and stayed by your side until I saw you would recover and got back to my inn. I took the boar in payment. Anyway, if you find some other boar that you can handle, feel free to take care of them and soon enough you'll have enough coin to turn this cave into something a bit more pleasant.",
+      },
+      event: "test",
       stage: 1,
       health: 10,
       time: 30,
@@ -103,7 +107,11 @@ export class App extends Component {
     {
       id: 2,
       title: "thanks for the boar2",
-      contents: "thanks.",
+      note: {
+        author: "The Innkeeper",
+        contents: "thanks.",
+      },
+      event: "test",
       stage: 2,
       health: 10,
       time: 30,
@@ -111,8 +119,12 @@ export class App extends Component {
     {
       id: 3,
       title: "thanks for the boar3",
-      contents: "thanks.",
-      stage: 1,
+      note: {
+        contents: "thanks.",
+        author: "Gérald, the berserker",
+      },
+      event: "test",
+      stage: 2,
       health: 10,
       time: 30,
     },
@@ -231,7 +243,7 @@ export class App extends Component {
         <Modal active={this.state.contractInProgress}>
           <h1>{this.state.currentContract.title}</h1>
           <BattleComponent
-            text={this.state.currentContract.contents}
+            text={this.state.currentContract.event}
             onSuccess={this.onContractSuccess}
             onFail={this.onFail}
             health={this.state.currentContract.health}
