@@ -98,7 +98,7 @@ export class App extends Component {
       title: "Thanks for the boar",
       note: {
         author: "Thomas, the innkeeper",
-        contents: "Hey there, thanks for taking care of that boar. You managed to kill it, but looking at you I can tell it didn't give up easy. I guess thanks to all those wars no one has time to get rid of them before they get that big. I found the boar in a nearby clearing and then you in here. I am a bit weary of strangers during this troubled times, but I couldn't leave you by yourself. I patched you up and stayed by your side until I saw you would recover and got back to my inn. I took the boar in payment. Anyway, if you find some other boar that you can handle, feel free to take care of them and soon enough you'll have enough coin to turn this cave into something a bit more pleasant.",
+        contents: "Hey there, thanks for taking care of that boar! You managed to kill it, but looking at you I could tell you had it rough. With all those wars, I guess no one has time to get rid of the bloody things before they get that big. Oh well. I found the boar lying dead in a nearby clearing and you next to it, or rather what was left of you. I can't be bothered with strangers these days, but I couldn't decently leave such a mess (lucky you!). I patched you up, stayed by your side until you recover and got back to my inn. I took the boar in payment, no need to thank me. Anyway, if you find some more that you can handle, feel free to take care of them. You'll get enough coins to turn this cave into something decent in no time!",
       },
       ennemy: "A pack of wild piglets",
       fail: "The pack of piglet trampled your body then disappeared in bushes. You managed to crawl back to your den.",
