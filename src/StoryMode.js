@@ -6,109 +6,56 @@ import BattleComponent from "./BattleComponent";
 export class StoryMode extends Component {
   constructor() {
     super();
-    this.state = this.recoverState();
 
     this.onMainButton = this.onMainButton.bind(this);
     this.onFail = this.onFail.bind(this);
-    this.getDefaultState = this.getDefaultState.bind(this);
-    this.resetState = this.resetState.bind(this);
-    this.storeState = this.storeState.bind(this);
-    this.recoverState = this.recoverState.bind(this);
-    this.setChapter = this.setChapter.bind(this);
-  }
-
-  getDefaultState() {
-    return Object.assign(
-      {},
-      {
-        currentButtonText: this.content.buttonText[0],
-        currentInfoText: this.content.infoText[0],
-      }
-    );
-  }
-
-  componentDidMount() {
-    window.addEventListener("beforeunload", this.storeState);
-    setInterval(this.storeState, 60000);
-  }
-
-  resetState() {
-    this.setState(this.getDefaultState());
-  }
-  storeState() {
-    window.localStorage.setItem("state_story", JSON.stringify(this.state));
-  }
-  recoverState() {
-    let savedState = window.localStorage.getItem("state_story");
-    if (savedState === null) {
-      return this.getDefaultState();
-    } else {
-      return JSON.parse(savedState);
-    }
-  }
-
-  content = {
-    title:"Prologue",
-    failText: "The last thing you saw was the boar's tusk ramming in your leg before you fell uncounscious.",
-    buttonText: [
-      "Wake up",
-      "Pick up the sword",
-      "Swing your sword at it",
-      "Take refuge in the cave",
-      "Drift into a deep slumber",
-      "Read the note",
-    ],
-    infoText: [
-      "",
-      "You see a unusually long and heavy sword lying next to you.",
-      "As you pick it up, you notice from the corner of your eye a wounded boar charging at you.",
-      "After defeating the boar, you spot a hidden cave nearby that feels safe.",
-      "You found refuge in the cave.",
-      "On waking up your body is still aching all over. You find a note thanking you for defeating the boar, along with a nice round coin.",
-    ],
-  };
-
-  setChapter(index) {
-    if (index >= this.content.buttonText.length) {
-      this.props.onEndStory();
-    } else {
-      console.log("setting chapter to", index);
-      this.props.onSetChapter(index);
-    }
   }
 
   onMainButton() {
-    this.setChapter(this.props.story.chapter + 1);
+    if (this.props.currentParagraph >= this.props.story.paragraphs.length-1){
+      this.props.onSetChapter();
+    } else {
+      this.props.onSetParagraph();
+    }
   }
 
   onFail() {
-    this.content.infoText[0] = this.content.failText;
-    this.setChapter(0);
+    this.props.story.paragraphs[0].info = this.props.story.failText;
+    this.props.onSetParagraph(0);
   }
 
   render() {
+    let paragraph = this.props.story.paragraphs[this.props.currentParagraph];
+
+    let title;
+    if (this.props.story.hideTitle) {
+      title = (<h1>{this.props.story.title}</h1>);
+    }
+    let skipButton;
+    if (this.props.currentParagraph === 0) {
+      skipButton = (<button onClick={()=>{this.props.onSetChapter()}} style={{ fontSize: "x-small" }}>
+        Skip story
+      </button>);
+    }
     return (
       <>
-        {this.props.story.chapter > 0 ? (
-          <h1>{this.content.title}</h1>
-        ) : (
-          <button onClick={this.props.onEndStory} style={{ fontSize: "x-small" }}>
-            Skip story
-          </button>
-        )}
+        {skipButton}
+        {title}
+
         <TabContent>
-          <p>{this.content.infoText[this.props.story.chapter]}</p>
-          {this.props.story.chapter === 2 ? (
+          <p>{paragraph.info}</p>
+          {typeof paragraph.battle !== 'undefined' ? (
             <BattleComponent
-              text={this.content.buttonText[this.props.story.chapter]}
+              key={this.props.currentParagraph}
+              text={paragraph.button}
               onSuccess={this.onMainButton}
               onFail={this.onFail}
-              health={10}
-              time={30}
+              health={paragraph.battle.health}
+              time={paragraph.battle.time}
             />
           ) : (
             <ProgressButton
-              text={this.content.buttonText[this.props.story.chapter]}
+              text={paragraph.button}
               onFinished={this.onMainButton}
             />
           )}
