@@ -23,6 +23,7 @@ export class App extends Component {
     this.availableContracts = this.availableContracts.bind(this);
     this.startContract = this.startContract.bind(this);
     this.onContractSuccess = this.onContractSuccess.bind(this);
+    this.onContractFail = this.onContractFail.bind(this);
   }
 
   getDefaultState() {
@@ -97,9 +98,10 @@ export class App extends Component {
       title: "Thanks for the boar",
       note: {
         author: "Thomas, the innkeeper",
-        contents: "Hey there, thanks for taking care of that boar. You managed to kill it, but looking at you I can tell it didn't give up easy. I guess no one has time to get rid of them before they get that big. I found the boar in a nearby clearing and then you in here. I am a bit weary of strangers during this troubled times, but I couldn't leave you by yourseld. I patched you up and stayed by your side until I saw you would recover and got back to my inn. I took the boar in payment. Anyway, if you find some other boar that you can handle, feel free to take care of them and soon enough you'll have enough coin to turn this cave into something a bit more pleasant.",
+        contents: "Hey there, thanks for taking care of that boar. You managed to kill it, but looking at you I can tell it didn't give up easy. I guess thanks to all those wars no one has time to get rid of them before they get that big. I found the boar in a nearby clearing and then you in here. I am a bit weary of strangers during this troubled times, but I couldn't leave you by yourself. I patched you up and stayed by your side until I saw you would recover and got back to my inn. I took the boar in payment. Anyway, if you find some other boar that you can handle, feel free to take care of them and soon enough you'll have enough coin to turn this cave into something a bit more pleasant.",
       },
-      event: "test",
+      ennemy: "A pack of wild piglets",
+      fail: "The pack of piglet trampled your body then disappeared in bushes. You managed to crawl back to your den.",
       stage: 1,
       health: 10,
       time: 30,
@@ -111,7 +113,7 @@ export class App extends Component {
         author: "The Innkeeper",
         contents: "thanks.",
       },
-      event: "test",
+      ennemy: "test",
       stage: 2,
       health: 10,
       time: 30,
@@ -123,7 +125,7 @@ export class App extends Component {
         contents: "thanks.",
         author: "Gérald, the berserker",
       },
-      event: "test",
+      ennemy: "test",
       stage: 2,
       health: 10,
       time: 30,
@@ -147,6 +149,14 @@ export class App extends Component {
       contractInProgress: false,
       currentContract: {},
       finishedContracts: newFinishedContracts
+    });
+  }
+  onContractFail() {
+    let infoText = this.state.currentContract.fail;
+    this.setState({
+      contractInProgress: false,
+      currentContract: {},
+      currentInfoText: infoText,
     });
   }
 
@@ -243,9 +253,9 @@ export class App extends Component {
         <Modal active={this.state.contractInProgress}>
           <h1>{this.state.currentContract.title}</h1>
           <BattleComponent
-            text={this.state.currentContract.event}
+            textEnnemy={this.state.currentContract.ennemy}
             onSuccess={this.onContractSuccess}
-            onFail={this.onFail}
+            onFail={this.onContractFail}
             health={this.state.currentContract.health}
             time={this.state.currentContract.time}
           ></BattleComponent>
