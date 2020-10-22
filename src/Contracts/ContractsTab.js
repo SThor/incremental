@@ -10,7 +10,8 @@ export class ContractsTab extends Component {
           {this.props.contracts.map((contract, i) => (
             <div key={contract + i} className={styles.Contract}>
               <h3>{contract.title}</h3>
-              <p>{contract.contents}</p>
+              <p>{contract.note.contents}</p>
+              <p className={styles.Signature}>{contract.note.author}</p>
               <button
                 className={styles.StartButton}
                 onClick={() => {

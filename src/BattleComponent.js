@@ -15,7 +15,7 @@ export class BattleComponent extends Component {
     return (
       <div className={styles.battleComponent}>
         <HoverComponent style={{"flex-grow":1}} text={this.props.text} target={health} onFinished={this.props.onSuccess}/>
-        <TimerComponent onFinished={this.props.onFail} target={time}/>
+        <TimerComponent text={this.props.textEnnemy} onFinished={this.props.onFail} target={time}/>
       </div>
     );
   }
