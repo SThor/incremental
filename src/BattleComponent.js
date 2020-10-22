@@ -6,14 +6,22 @@ import HoverComponent from "./HoverComponent";
 export class BattleComponent extends Component {
   constructor() {
     super();
-    this.state = { progress: 0.0 };
+    this.state = { alreadyFinished: false };
+    this.onFinished = this.onFinished.bind(this);
+  }
+
+  onFinished(callable) {
+    if (!this.state.alreadyFinished) {
+      this.setState({alreadyFinished: true});
+      callable();
+    }
   }
 
   render() {
     return (
       <div className={styles.battleComponent}>
-        <HoverComponent style={{"flex-grow":1}} text={this.props.text} target={this.props.health} onFinished={this.props.onSuccess}/>
-        <TimerComponent onFinished={this.props.onFail} target={this.props.time}/>
+        <HoverComponent style={{"flex-grow":1}} text={this.props.text} target={this.props.health} onFinished={()=>{this.onFinished(this.props.onSuccess)}}/>
+        <TimerComponent onFinished={()=>{this.onFinished(this.props.onFail)}} target={this.props.time}/>
       </div>
     );
   }
