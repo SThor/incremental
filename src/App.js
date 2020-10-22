@@ -12,7 +12,6 @@ export class App extends Component {
     super();
     this.state = this.recoverState();
 
-
     this.onMainButton = this.onMainButton.bind(this);
     this.onFail = this.onFail.bind(this);
     this.skipPrologue = this.skipPrologue.bind(this);
@@ -20,21 +19,29 @@ export class App extends Component {
     this.resetState = this.resetState.bind(this);
     this.storeState = this.storeState.bind(this);
     this.recoverState = this.recoverState.bind(this);
+    this.onMainButton = this.onMainButton.bind(this);
+    this.availableContracts = this.availableContracts.bind(this);
+    this.startContract = this.startContract.bind(this);
+    this.onContractSuccess = this.onContractSuccess.bind(this);
   }
 
   getDefaultState() {
-    return Object.assign({}, {
-      currentStade: 0,
-      currentTitle: this.stades[0].title,
-      currentButtonText: this.stades[0].buttonText[0],
-      currentInfoText: this.stades[0].infoText[0],
-      currentSubStade: 0,
-      combatInProgress: true,
-    });
+    return Object.assign(
+      {},
+      {
+        currentStade: 0,
+        currentTitle: this.stades[0].title,
+        currentButtonText: this.stades[0].buttonText[0],
+        currentInfoText: this.stades[0].infoText[0],
+        currentSubStade: 0,
+        combatInProgress: false,
+        currentContract: {},
+      }
+    );
   }
 
   componentDidMount() {
-    window.addEventListener('beforeunload', this.storeState);
+    window.addEventListener("beforeunload", this.storeState);
     setInterval(this.storeState, 60000);
   }
 
@@ -80,9 +87,52 @@ export class App extends Component {
     {
       title: "Beginning of an empire",
       initStade: () => {},
-      contracts: [{ title: "thanks for the boar", contents: "thanks." },{ title: "thanks for the boar", contents: "thanks." }],
     },
   ];
+
+  contracts = [
+    {
+      id: 1,
+      title: "thanks for the boar",
+      contents: "thanks.",
+      stage: 1,
+      health: 10,
+      time: 30,
+    },
+    {
+      id: 2,
+      title: "thanks for the boar2",
+      contents: "thanks.",
+      stage: 2,
+      health: 10,
+      time: 30,
+    },
+    {
+      id: 3,
+      title: "thanks for the boar3",
+      contents: "thanks.",
+      stage: 1,
+      health: 10,
+      time: 30,
+    },
+  ];
+
+  availableContracts(stage) {
+    return this.contracts.filter((contract) => contract.stage <= stage);
+  }
+
+  startContract(contract) {
+    this.setState({
+      contractInProgress: true,
+      currentContract: contract,
+    });
+  }
+  onContractSuccess() {
+    this.setState({
+      contractInProgress: false,
+      currentContract: {},
+    });
+  }
 
   setStade(index) {
     index = Math.min(index, this.stades.length - 1);
@@ -118,10 +168,10 @@ export class App extends Component {
     this.setState(this.getDefaultState());
   }
   storeState() {
-    window.localStorage.setItem('state', JSON.stringify(this.state));
+    window.localStorage.setItem("state", JSON.stringify(this.state));
   }
   recoverState() {
-    let savedState = window.localStorage.getItem('state');
+    let savedState = window.localStorage.getItem("state");
     if (savedState === null) {
       return this.getDefaultState();
     } else {
@@ -134,10 +184,11 @@ export class App extends Component {
       <div className="App">
         {this.state.currentStade !== 0 || this.state.currentSubStade !== 0 ? (
           <h1>{this.state.currentTitle}</h1>
-        ) :
-        (<button onClick={this.skipPrologue} style={{ "fontSize": "x-small" }}>
-          Skip prologue
-        </button>)}
+        ) : (
+          <button onClick={this.skipPrologue} style={{ fontSize: "x-small" }}>
+            Skip prologue
+          </button>
+        )}
         {this.state.currentStade === 0 ? (
           <TabContent>
             <p>{this.state.currentInfoText}</p>
@@ -160,13 +211,28 @@ export class App extends Component {
         ) : (
           <TabView showControls={this.state.currentStade > 0}>
             <ContractsTab
-              contracts={this.stades[this.state.currentStade].contracts}
+              contracts={this.availableContracts(this.state.currentStade)}
+              onStartContract={this.startContract}
             ></ContractsTab>
             <TabContent>Your den</TabContent>
           </TabView>
         )}
-      <button onClick={this.resetState} style={{ "fontSize": "x-small", "position": "absolute", "bottom": "0" }}>Reset state</button>
-        <Modal active={false}><BattleComponent></BattleComponent></Modal>
+        <button
+          onClick={this.resetState}
+          style={{ fontSize: "x-small", position: "absolute", bottom: "0" }}
+        >
+          Reset state
+        </button>
+        <Modal active={this.state.contractInProgress}>
+          <h1>{this.state.currentContract.title}</h1>
+          <BattleComponent
+            text={this.state.currentContract.contents}
+            onSuccess={this.onContractSuccess}
+            onFail={this.onFail}
+            health={this.state.currentContract.health}
+            time={this.state.currentContract.time}
+          ></BattleComponent>
+        </Modal>
       </div>
     );
   }
