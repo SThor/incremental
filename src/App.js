@@ -51,10 +51,10 @@ export class App extends Component {
       ],
       infoText: [
         "",
-        "You see a unusually long and heavy sword lying next to you.",
-        "As you pick it up, you notice from the corner of your eye a wounded boar charging at you.",
+        "You see an unusually long and heavy sword lying next to you.",
+        "As you pick it up, you notice a wounded boar charging at you from the corner of your eye.",
         "After defeating the boar, you spot a hidden cave nearby that feels safe.",
-        "You found refuge in the cave.",
+        "You find refuge in the cave.",
         "On waking up your body is still aching all over. You find a note thanking you for defeating the boar, along with a nice round coin.",
       ],
       initStade: () => {
