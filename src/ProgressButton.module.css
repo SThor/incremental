@@ -1,3 +1,8 @@
+:root {
+    --normal-color: #51b7e6;
+    --failed-color: #bb0000;
+}
+
 .button {
     margin: 0 1em;
     padding: 0.25em 1em;
@@ -18,9 +23,13 @@
     /* Corrects inability to style clickable `input` types in iOS */
     -webkit-appearance: none;
 
-    border: 2px solid #51b7e6;
+    border: 2px solid var(--normal-color);
     background: transparent;
     border-radius: 3px;
+}
+
+.button.failed {
+    border: 2px solid var(--failed-color);
 }
 
 /* Remove excess padding and border in Firefox 4+ */
