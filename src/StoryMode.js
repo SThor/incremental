@@ -7,11 +7,15 @@ export class StoryMode extends Component {
   constructor() {
     super();
 
+    this.failed = false;
+    document.body.classList.remove('failed');
     this.onMainButton = this.onMainButton.bind(this);
     this.onFail = this.onFail.bind(this);
   }
 
   onMainButton() {
+    this.failed = false;
+    document.body.classList.remove('failed');
     if (this.props.currentParagraph >= this.props.story.paragraphs.length-1){
       this.props.onSetChapter();
     } else {
@@ -20,6 +24,8 @@ export class StoryMode extends Component {
   }
 
   onFail() {
+    this.failed = true;
+    document.body.classList.add('failed');
     this.props.story.paragraphs[0].info = this.props.story.failText;
     this.props.onSetParagraph(0);
   }
@@ -57,6 +63,7 @@ export class StoryMode extends Component {
             <ProgressButton
               text={paragraph.button}
               onFinished={this.onMainButton}
+              failedState={this.failed}
             />
           )}
         </TabContent>

@@ -1,5 +1,10 @@
 @import-normalize; /* bring in normalize.css styles */
 
+:root {
+  --normal-background: #121418;
+  --failed-background: #020406;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -7,7 +12,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #121418;
+  background-color: var(--normal-background);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -15,6 +20,10 @@ body {
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: #E4F7FF;
+}
+
+body.failed {
+  background-color: var(--failed-background);
 }
 
 code {
