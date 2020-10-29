@@ -14,7 +14,7 @@ export default  [
         button: "Pick up the sword"
       },
       {
-        info: "As you pick it up, you notice from the corner of your eye a wounded boar charging at you.",
+        info: "As you pick it up, you notice a wounded boar charging at you from the corner of the eye.",
         button: "Swing your sword at it",
         battle: {
           health: 10,
@@ -44,7 +44,7 @@ export default  [
         title: "Thanks for the boar",
         note: {
           author: "Thomas, the innkeeper",
-          contents: "Hey there, thanks for taking care of that boar. You managed to kill it, but looking at you I can tell it didn't give up easy. I guess thanks to all those wars no one has time to get rid of them before they get that big. I found the boar in a nearby clearing and then you in here. I am a bit weary of strangers during this troubled times, but I couldn't leave you by yourself. I patched you up and stayed by your side until I saw you would recover and got back to my inn. I took the boar in payment. Anyway, if you find some other boar that you can handle, feel free to take care of them and soon enough you'll have enough coin to turn this cave into something a bit more pleasant.",
+          contents: "Hey there, thanks for taking care of that boar! You managed to kill it, but looking at you I could tell you had it rough. With all those wars, I guess no one has time to get rid of the bloody things before they get that big. Oh well. I found the boar lying dead in a nearby clearing and you in this cave. I can't be bothered with strangers these days, but I couldn't decently leave you in such a mess. I patched you up, stayed by your side until you recovered and got back to my inn. I took the boar in payment, if you don't mind. Anyway, if you find some more that you can handle, feel free to take care of them. You'll get enough coins to turn this cave into something decent in no time!",
         },
         ennemy: "A pack of wild piglets",
         fail: "The pack of piglet trampled your body then disappeared in bushes. You managed to crawl back to your den.",
