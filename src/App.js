@@ -7,7 +7,7 @@ import ContractsTab from "./Contracts/ContractsTab";
 import Modal from "./Modal";
 import StoryMode from "./StoryMode";
 
-import chapters from "./gameContent.js";
+import {chapters, contracts} from "./gameContent.js";
 
 export class App extends Component {
   constructor() {
@@ -18,7 +18,6 @@ export class App extends Component {
     this.resetState = this.resetState.bind(this);
     this.storeState = this.storeState.bind(this);
     this.recoverState = this.recoverState.bind(this);
-    this.onMainButton = this.onMainButton.bind(this);
     this.availableContracts = this.availableContracts.bind(this);
     this.startContract = this.startContract.bind(this);
     this.onContractSuccess = this.onContractSuccess.bind(this);
@@ -31,7 +30,8 @@ export class App extends Component {
     return Object.assign(
       {},
       {
-        currentStade: 0,
+        currentChapter: 0,
+        currentParagraph: 0,
         combatInProgress: false,
         currentContract: {},
         finishedContracts: [],
@@ -45,7 +45,7 @@ export class App extends Component {
   }
 
   availableContracts(stage) {
-    return chapters.contracts.filter((contract) => {return contract.stage <= stage && !this.state.finishedContracts.includes(contract.id)});
+    return contracts.filter((contract) => {return contract.stage <= stage && !this.state.finishedContracts.includes(contract.id)});
   }
 
   startContract(contract) {
