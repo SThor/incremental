@@ -1,0 +1,79 @@
+.Contracts {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: center;
+}
+
+.Contract {
+  max-width: 50%;
+  min-width: 20%;
+  border: 1px solid #232934;
+  border-radius: 3px;
+  flex: 0 0;
+  margin: 20px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.Contract:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap');
+.Contract h3{
+  font-family: 'Caveat', cursive;
+  font-weight: bold;
+}
+.Contract p{
+  font-family: 'Caveat', cursive;
+  text-align: justify;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap');
+.Contract .Signature{
+  margin-top: 3em;
+  font-family: 'Homemade Apple', cursive;
+  text-align: right;
+  font-size: 0.8em;
+}
+
+.StartButton {  
+  margin: 0 1em;
+  padding: 0.25em 1em;
+  width: auto;
+  overflow: visible;
+
+  /* inherit font & color from ancestor */
+  color: inherit;
+  font: inherit;
+
+  /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
+  line-height: normal;
+
+  /* Corrects font smoothing for webkit */
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+
+  /* Corrects inability to style clickable `input` types in iOS */
+  -webkit-appearance: none;
+
+  border: 2px solid #51b7e6;
+  background: transparent;
+  border-radius: 3px;
+  
+  transition: background-color 0.4s ease-out;
+}
+
+/* Remove excess padding and border in Firefox 4+ */
+.StartButton::-moz-focus-inner {
+    margin: 0 1em;
+    padding: 0.25em 1em;
+}
+
+.StartButton:hover{
+  background: #232934;
+}
