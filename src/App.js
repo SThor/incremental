@@ -111,7 +111,7 @@ export class App extends Component {
           <h1>{chapter.title}</h1>
           <TabView showControls={true}>
             <ContractsTab
-              contracts={this.availableContracts(this.state.currentStade)}
+              contracts={this.availableContracts(this.state.currentChapter)}
               onStartContract={this.startContract}
             ></ContractsTab>
             <TabContent>Your den</TabContent>
