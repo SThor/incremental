@@ -12,6 +12,13 @@ This was first started as a learning project, and as a small enough game project
 
 Clone the project, run `npm install`, then run `npm start` in the project directory, open [http://localhost:3000](http://localhost:3000) in the browser to view the game.
 
+### Pinned dependencies
+
+The project is still on `react-scripts` 3.4.1, so a few things are pinned or worked around:
+
+- `package.json` has an `overrides` entry forcing `node-forge` to `^1.4.3`. It is pulled in by `react-scripts` → `webpack-dev-server@3` → `selfsigned@1`, which only uses it to make the HTTPS dev certificate. The override fixes security advisories (GHSA-6qrw-m8cv-hcxf and others) in the 0.x line. Overrides need npm 8.3 or later. Remove the override once `react-scripts` is upgraded to a version that brings node-forge ≥ 1.4.3 on its own (`npm ls node-forge` to check).
+- On Node 17 or later, `npm start` and `npm run build` need `NODE_OPTIONS=--openssl-legacy-provider`, because webpack 4 uses a hash algorithm that OpenSSL 3 disables by default.
+
 ### Available Scripts
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). As such, there are several available scripts:
